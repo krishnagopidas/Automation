@@ -13,11 +13,16 @@ pipeline {
                 bat 'mvn clean package'
             }
         }
+       
+stage('Docker Build') {
+    steps {
+        bat '''
+            where docker
+            "C:\\Users\\DELL\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" version
+            "C:\\Users\\DELL\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" build -t employee-management:v1 .
+        '''
+    }
+}
 
-        stage('Docker Build') {
-            steps {
-                bat 'docker build -t employee-management:v1 .'
-            }
-        }
     }
 }
