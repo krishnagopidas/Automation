@@ -1,0 +1,15 @@
+
+# Minikube local cache
+**/.minikube/
+
+# Kubernetes local generated files
+**/cache/
+
+# Maven build output
+**/target/
+
+# Local diagnostic logs
+gcm-diagnose.log
+
+# Minikube local cache
+**/.minikube/
