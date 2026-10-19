@@ -13,7 +13,27 @@ pipeline {
                 bat 'mvn clean package'
             }
         }
-       
+
+         
+stage('Docker Hub Push') {
+    steps {
+        script {
+            withCredentials([usernamePassword(
+                credentialsId: 'dockerhub-creds',
+                usernameVariable: 'DOCKER_USER',
+                passwordVariable: 'DOCKER_PASS'
+            )]) {
+                bat '''
+                    docker login -u "%DOCKER_USER%" -p "%DOCKER_PASS%"
+                    docker tag employee-management:v1 %DOCKER_USER%/employee-management:v1
+                    docker push %DOCKER_USER%/employee-management:v1
+                    docker logout
+                '''
+            }
+        }
+    }
+}
+
 stage('Docker Build') {
     steps {
         bat '''
